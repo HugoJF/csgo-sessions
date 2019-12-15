@@ -21,6 +21,7 @@ class DamageTotalCollector extends Collector
 		$damage = $event['damage'];
 
 		$this->command('damage', 'INCRBY', [$damage]);
-		Log::info("DamageTotalCollector adding $damage HP to $steamid", compact('event'));
+		$id = $this->session->getSession()->id;
+		Log::info("DamageTotalCollector adding $damage HP to $steamid on session $id", compact('event'));
 	}
 }
