@@ -3,6 +3,7 @@
 namespace App\Collectors;
 
 use App\Classes\Collector;
+use Illuminate\Support\Facades\Log;
 
 class DamageTotalCollector extends Collector
 {
@@ -20,5 +21,6 @@ class DamageTotalCollector extends Collector
 		$damage = $event['damage'];
 
 		$this->command('damage', 'INCRBY', [$damage]);
+		Log::info("DamageTotalCollector adding $damage HP to $steamid", compact('event'));
 	}
 }
