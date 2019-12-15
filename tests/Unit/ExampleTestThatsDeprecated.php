@@ -10,7 +10,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Redis;
 use Tests\TestCase;
 
-class ExampleTest extends TestCase
+class ExampleTestThatsDeprecated extends TestCase
 {
 	//	use RefreshDatabase;
 

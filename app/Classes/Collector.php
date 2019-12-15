@@ -20,10 +20,9 @@ abstract class Collector
 		$this->session = $session;
 	}
 
-
 	public function command(string $name, string $command, array $data)
 	{
-		$key = $this->getRedisKey($name);
+		$key = $this->session->getRedisKey($name);
 
 		return Redis::command($command, array_merge([$key], $data));
 	}

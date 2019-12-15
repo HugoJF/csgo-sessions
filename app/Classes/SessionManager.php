@@ -2,10 +2,8 @@
 
 namespace App\Classes;
 
-use App\Server;
 use App\Services\ServerService;
-use App\Services\SessionService;
-use App\Services\UserService;
+use App\Session;
 use Illuminate\Support\Collection;
 
 class SessionManager
@@ -16,12 +14,11 @@ class SessionManager
 
 	protected $collectors;
 
-	public function __construct($steamid, Server $server)
+	public function __construct(Session $session)
 	{
-		$this->steamid = $steamid;
-		$this->server = $server;
+		$this->session = $session;
+		$this->server = $session->server;
 
-		$this->findSession($steamid, $server);
 		$this->loadCollectors();
 	}
 
@@ -35,14 +32,6 @@ class SessionManager
 		$prefix = $this->getRedisPrefix();
 
 		return "$prefix.$name";
-	}
-
-	private function findSession($steamid, Server $server): void
-	{
-		/** @var UserService $userService */
-		$userService = app(UserService::class);
-
-		$this->session = $userService->findActiveSession($server, $steamid);
 	}
 
 	private function loadCollectors()
@@ -70,42 +59,19 @@ class SessionManager
 		if (($event['server'] ?? null) !== $this->server->address)
 			return;
 
-		if ($event['type'] === 'PlayerDisconnected')
-			$this->handleDisconnect($event);
-		else if ($this->session)
-			$this->handleSessionEvent($event);
-		else
-			$this->handleConnect($event);
+		$this->handleGenericEvent($event);
 	}
 
 	/**
 	 * @param array $event
 	 */
-	protected function handleSessionEvent(array $event): void
+	protected function handleGenericEvent(array $event): void
 	{
 		/** @var Collector $collector */
 		foreach ($this->collectors as $collector) {
 			if ($collector->accepts($event))
 				$collector->collect($event);
 		}
-	}
-
-	protected function handleDisconnect(array $event): void
-	{
-		$this->session->active = false;
-		$this->session->save();
-	}
-
-	protected function handleConnect(array $event): void
-	{
-		$type = $event['type'] ?? false;
-		if ($type !== 'PlayerConnected') // TODO:
-			return;
-
-		$sessionService = app(SessionService::class);
-
-		$this->session = $sessionService->create($this->steamid, $this->server);
-		$this->loadCollectors();
 	}
 
 	/**

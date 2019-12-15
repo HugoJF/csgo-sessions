@@ -21,6 +21,7 @@ class UserService
 		$session->save();
 	}
 
+	/** @deprecated  */
 	public function findActiveSession(Server $server, $steamid)
 	{
 		/** @var Collection $sessions */

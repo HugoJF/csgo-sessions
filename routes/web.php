@@ -11,4 +11,5 @@
 |
 */
 
-Route::get('/', 'SessionController@index');
+Route::get('/', 'SessionController@index')->name('sessions.index');
+Route::get('/sessions/{session}', 'SessionController@show')->name('sessions.show');

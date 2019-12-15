@@ -5,7 +5,7 @@
     <ul>
         @forelse ($sessions as $session)
         <li>
-            <strong>{{ $session->active ? 'Active' : 'Ended' }}</strong> session - {{ $session->steamid }} on {{ $session->server->address }}[{{ $session->server->id }}]
+            <a href="{{ route('sessions.show', $session) }}"><strong>{{ $session->active ? 'Active' : 'Ended' }}</strong> session - {{ $session->steamid }} on {{ $session->server->address }}[{{ $session->server->id }}]</a>
         </li>
         @empty
             <h4>There are no sessions available</h4>

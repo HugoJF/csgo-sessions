@@ -7,7 +7,7 @@ use App\Classes\Collector;
 class DamageTotalCollector extends Collector
 {
 	protected $expects = ['damage'];
-	protected $acceptedEvents = ['PLAYER_DAMAGE'];
+	protected $acceptedEvents = ['PlayerDamage'];
 
 	public function collect($event): void
 	{
