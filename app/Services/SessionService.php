@@ -34,6 +34,7 @@ class SessionService
 		return Session::where('active', true)->leftJoin('servers', 'sessions.server_id', '=', 'servers.id')->get([
 			'sessions.id',
 			'sessions.active',
+			'sessions.server_id',
 			'sessions.steamid',
 			'servers.address',
 			'sessions.created_at',
