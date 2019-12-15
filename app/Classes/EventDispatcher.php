@@ -33,6 +33,11 @@ class EventDispatcher
 
 	public function dispatchEvent($event)
 	{
+		// TODO: ew
+		$tracked = Server::where('address', $event['server'])->exists();
+		if (!$tracked)
+			return;
+
 		if ($this->eventService->isConnectEvent($event))
 			$this->handleConnect($event);
 		else if ($this->eventService->isDisconnectEvent($event))
@@ -46,11 +51,6 @@ class EventDispatcher
 		$server = $event['server'] ?? null;
 		if (!$server)
 			throw new Exception('Event did not pass server address');
-
-		// TODO: ew
-		$tracked = Server::where('address', $server)->exists();
-		if (!$tracked)
-			return;
 
 		$serverSessions = $this->sessions[ $server ] ?? [];
 
