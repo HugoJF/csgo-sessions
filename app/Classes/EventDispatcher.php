@@ -13,7 +13,7 @@ class EventDispatcher
 	protected $sessionService;
 	protected $eventService;
 
-	protected $sessions;
+	public $sessions;
 
 	public function __construct(SessionService $sessionService, EventService $eventService)
 	{
