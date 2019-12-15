@@ -43,7 +43,7 @@ class ProcessEvents extends Command
 
 		for ($i = 0; $i < 1000; $i++) {
 			$rawEvent = Redis::connection('input')->lpop('sessions');
-			$event = json_decode($rawEvent);
+			$event = json_decode($rawEvent, true);
 
 			$eventDispatcher->dispatchEvent($event);
 		}
