@@ -46,7 +46,7 @@ class EventDispatcher
 		if (!$server)
 			throw new Exception('Event did not pass server address');
 
-		$serverSessions = $this->sessions[ $server ];
+		$serverSessions = $this->sessions[ $server ] ?? [];
 
 		/** @var SessionManager $session */
 		foreach ($serverSessions as $session) {
