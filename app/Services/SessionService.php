@@ -19,6 +19,10 @@ class SessionService
 			throw new MultipleSessionsException($steamid);
 
 		$session = $sessions->first();
+
+		if (!$session)
+			return;
+
 		$session->steamid = $steamid;
 		$session->active = false;
 		$session->save();
