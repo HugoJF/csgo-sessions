@@ -8,7 +8,6 @@ use Illuminate\Support\Collection;
 
 class SessionManager
 {
-	protected $steamid;
 	protected $server;
 	protected $session;
 
@@ -54,8 +53,6 @@ class SessionManager
 	{
 		// TODO: improve
 		// TODO: not always playerSteamId is the same, sometimes it can be called attackerSteamId, somehow fix this shit
-		if (($event['playerSteamId'] ?? null) !== $this->steamid)
-			return;
 		if (($event['server'] ?? null) !== $this->server->address)
 			return;
 

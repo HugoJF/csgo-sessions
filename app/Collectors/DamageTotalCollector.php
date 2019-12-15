@@ -11,6 +11,12 @@ class DamageTotalCollector extends Collector
 
 	public function collect($event): void
 	{
+		$steamid = $this->session->getSession()->steamid;
+
+		// TODO: ew
+		if (($event['attackerSteam'] ?? null) !== $steamid)
+			return;
+
 		$damage = $event['damage'];
 
 		$this->command('damage', 'INCRBY', [$damage]);
