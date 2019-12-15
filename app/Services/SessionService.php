@@ -30,7 +30,15 @@ class SessionService
 
 	public function getActiveSessions()
 	{
-		return Session::where('active', true)->leftJoin('servers', 'sessions.server_id', '=', 'servers.id')->get();
+		// TODO: meh
+		return Session::where('active', true)->leftJoin('servers', 'sessions.server_id', '=', 'servers.id')->get([
+			'sessions.id',
+			'sessions.active',
+			'sessions.steamid',
+			'servers.address',
+			'sessions.created_at',
+			'sessions.updated_at',
+		]);
 	}
 
 	/** @deprecated */
