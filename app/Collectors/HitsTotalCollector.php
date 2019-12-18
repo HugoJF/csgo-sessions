@@ -16,7 +16,7 @@ class HitsTotalCollector extends Collector
 
 		$hitgroup = $event['hitgroup'];
 
-		$this->command('INCRBY', "damage.$hitgroup", [1]);
+		$this->command('INCRBY', "hits.$hitgroup", [1]);
 		info("HitsTotalCollector adding 1 hit [$hitgroup] to $session->steamid on session $session->id", compact('event', 'session'));
 	}
 }
