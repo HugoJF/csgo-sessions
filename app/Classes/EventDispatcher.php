@@ -37,9 +37,11 @@ class EventDispatcher
 
 	public function dispatchEvent($event)
 	{
-		$server = $this->serverService->findServerByAddress($event['server']);
+		$address = $event['server'];
+		$server = $this->serverService->findServerByAddress($address);
+
 		if (!$server) {
-			info("Received event for server {$event['server']} that is not being tracked");
+			info("Received event for server $address that is not being tracked");
 
 			return;
 		}
