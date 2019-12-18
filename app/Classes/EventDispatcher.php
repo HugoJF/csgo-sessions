@@ -41,7 +41,7 @@ class EventDispatcher
 		$server = $this->serverService->findServerByAddress($address);
 
 		if (!$server) {
-			info("Received event for server $address that is not being tracked");
+			info("Received event for server $address that is not being tracked", compact('event'));
 
 			return;
 		}
