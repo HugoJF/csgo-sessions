@@ -32,6 +32,12 @@ class ProcessEvents implements ShouldQueue
 			$rawEvent = Redis::connection('input')->rpop('sessions');
 			$event = json_decode($rawEvent);
 
+			if (!$event) {
+				info('Null event found', compact('rawEvent', 'event'));
+
+				return;
+			}
+
 			$eventDispatcher->dispatchEvent($event);
 		}
 	}
