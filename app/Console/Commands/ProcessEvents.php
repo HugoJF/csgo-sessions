@@ -50,7 +50,7 @@ class ProcessEvents extends Command
 
 				return;
 			}
-			
+
 			$eventDispatcher->dispatchEvent($event);
 		}
     }
