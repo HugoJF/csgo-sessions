@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Collectors\DamageTotalCollector;
+use App\Collectors\HitsTotalCollector;
 use App\Server;
 
 class ServerService
@@ -12,6 +13,7 @@ class ServerService
 		// TODO: implement
 		return collect([
 			DamageTotalCollector::class,
+			HitsTotalCollector::class,
 		]);
 	}
 
