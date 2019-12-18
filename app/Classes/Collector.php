@@ -2,6 +2,7 @@
 
 namespace App\Classes;
 
+use App\Exceptions\MissingEventDataException;
 use Exception;
 use Illuminate\Support\Facades\Redis;
 
@@ -10,38 +11,34 @@ abstract class Collector
 	/**
 	 * @var SessionManager
 	 */
-	protected $session;
+	protected $manager;
 
 	protected $expects = [];
 	protected $acceptedEvents = [];
+	protected $eventOwnerKey = [];
 
 	public function __construct(SessionManager $session)
 	{
-		$this->session = $session;
+		$this->manager = $session;
 	}
 
-	public function command(string $name, string $command, array $data)
+	public function command(string $command, string $name, array $data)
 	{
-		$key = $this->session->getRedisKey($name);
+		$key = $this->manager->getRedisKey($name);
 
 		return Redis::command($command, array_merge([$key], $data));
 	}
 
 	public function accepts(array $event): bool
 	{
-		// TODO: log
-		if (!array_key_exists('type', $event))
-			return false;
-
-		return in_array($event['type'], $this->acceptedEvents);
+		return $this->isCompatibleWith($event) && $this->matchesEventOwner($event);
 	}
 
 	protected function checkExpectedData(array $event): void
 	{
 		foreach ($this->expects as $expect) {
 			if (!array_key_exists($expect, $event)) {
-				// TODO: create exception for this to allow event serialization
-				throw new Exception("Expected key `$expect` does not exist in event.");
+				throw new MissingEventDataException($expect);
 			}
 		}
 	}
@@ -52,5 +49,40 @@ abstract class Collector
 		$this->collect($event);
 	}
 
+	/**
+	 * @param array $event
+	 *
+	 * @return bool
+	 * @throws MissingEventDataException
+	 */
+	protected function isCompatibleWith(array $event): bool
+	{
+		if (!array_key_exists('type', $event)) {
+			throw new MissingEventDataException('type');
+		}
+
+		return in_array($event['type'], $this->acceptedEvents);
+	}
+
+	protected function matchesEventOwner(array $event)
+	{
+		// If event owner key array is not defined, there's nothing to check
+		if (count($this->eventOwnerKey) === 0)
+			return true;
+
+		$type = $event['type'];
+
+		// Pretty error for missing event owner key
+		if (!array_key_exists($type, $this->eventOwnerKey)) {
+			$class = static::class;
+			throw new Exception("Missing event owner key for event type $type on collector $class");
+		}
+
+		$ownerKey = $this->eventOwnerKey[ $type ];
+
+		return $event[ $ownerKey ] === $this->manager->getSession()->steamid;
+	}
+
 	abstract public function collect(array $event): void;
+
 }

@@ -4,11 +4,7 @@ namespace Tests\Feature;
 
 use App\Classes\EventDispatcher;
 use App\Server;
-use App\Session;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Redis;
 use Tests\TestCase;
 
@@ -88,15 +84,11 @@ class EventTest extends TestCase
 		$dispatcher2->dispatchEvent($this->damageData);
 		$dispatcher2->dispatchEvent($this->disconnectData);
 
-//		dd(Session::all()->toArray());
-
 		$keys = Redis::keys('*');
 		$data = collect($keys)->mapWithKeys(function ($key) {
 			$value = Redis::connection('input')->get($key);
 
 			return [$key => $value];
 		});
-
-		dd($data);
 	}
 }

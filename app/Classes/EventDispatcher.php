@@ -2,8 +2,10 @@
 
 namespace App\Classes;
 
+use App\Exceptions\MissingEventDataException;
 use App\Server;
 use App\Services\EventService;
+use App\Services\ServerService;
 use App\Services\SessionService;
 use Exception;
 use Illuminate\Support\Facades\Redis;
@@ -12,13 +14,15 @@ class EventDispatcher
 {
 	protected $sessionService;
 	protected $eventService;
+	protected $serverService;
 
 	public $sessions;
 
-	public function __construct(SessionService $sessionService, EventService $eventService)
+	public function __construct(SessionService $sessionService, EventService $eventService, ServerService $serverService)
 	{
 		$this->sessionService = $sessionService;
 		$this->eventService = $eventService;
+		$this->serverService = $serverService;
 
 		$this->loadActiveSessions();
 	}
@@ -33,10 +37,12 @@ class EventDispatcher
 
 	public function dispatchEvent($event)
 	{
-		// TODO: ew
-		$tracked = Server::where('address', $event['server'])->exists();
-		if (!$tracked)
+		$server = $this->serverService->findServerByAddress($event['server']);
+		if (!$server) {
+			info("Received event for server {$event['server']} that is not being tracked");
+
 			return;
+		}
 
 		if ($this->eventService->isConnectEvent($event))
 			$this->handleConnect($event);
@@ -48,11 +54,12 @@ class EventDispatcher
 
 	protected function handleEvent($event)
 	{
-		$server = $event['server'] ?? null;
-		if (!$server)
-			throw new Exception('Event did not pass server address');
+		if (!array_key_exists('server', $event))
+			throw new MissingEventDataException('server');
 
-		$serverSessions = $this->sessions[ $server ] ?? [];
+		$address = $event['server'];
+
+		$serverSessions = $this->sessions[ $address ] ?? [];
 
 		/** @var SessionManager $session */
 		foreach ($serverSessions as $session) {

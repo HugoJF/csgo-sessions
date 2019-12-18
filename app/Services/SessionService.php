@@ -5,9 +5,7 @@ namespace App\Services;
 use App\Classes\SessionManager;
 use App\Exceptions\MultipleSessionsException;
 use App\Exceptions\UntrackedServerException;
-use App\Server;
 use App\Session;
-use Exception;
 
 class SessionService
 {
@@ -50,13 +48,15 @@ class SessionService
 		})->toArray();
 	}
 
-	public function create($steamid, $serverAdress)
+	public function create($steamid, $serverAddress)
 	{
-		// TODO: server should ALWAYS exist on database because it should be filtered somewhere else
-		$server = Server::where('address', $serverAdress)->first();
+		/** @var ServerService $serverService */
+		$serverService = app(ServerService::class);
+		$server = $serverService->findServerByAddress($serverAddress);
 
+		// This exception should never be thrown since EventDispatcher should filter servers that are not tracked
 		if (!$server)
-			throw new UntrackedServerException($serverAdress);
+			throw new UntrackedServerException($serverAddress);
 
 		// TODO: fillable
 		$session = Session::make();

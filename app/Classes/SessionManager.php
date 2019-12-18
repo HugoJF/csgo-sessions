@@ -2,6 +2,7 @@
 
 namespace App\Classes;
 
+use App\Exceptions\MissingEventDataException;
 use App\Services\ServerService;
 use App\Session;
 use Illuminate\Support\Collection;
@@ -51,16 +52,16 @@ class SessionManager
 
 	public function handleEvent(array $event)
 	{
-		// TODO: improve
-		// TODO: not always playerSteamId is the same, sometimes it can be called attackerSteamId, somehow fix this shit
-		if (($event['server'] ?? null) !== $this->server->address)
-			return;
+		$address = $event['server'] ?? false;
 
-		$this->handleGenericEvent($event);
+		if ($address === $this->server->address)
+			$this->handleGenericEvent($event);
 	}
 
 	/**
 	 * @param array $event
+	 *
+	 * @throws MissingEventDataException
 	 */
 	protected function handleGenericEvent(array $event): void
 	{

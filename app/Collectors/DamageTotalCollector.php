@@ -3,26 +3,21 @@
 namespace App\Collectors;
 
 use App\Classes\Collector;
-use Illuminate\Support\Facades\Log;
 
 class DamageTotalCollector extends Collector
 {
-	protected $expects = ['damage'];
+	protected $expects = ['damage', 'hitgroup', 'attackerSteam'];
 	protected $acceptedEvents = ['PlayerDamage'];
+	protected $eventOwnerKey = ['PlayerDamage' => 'attackerSteam'];
 
 	public function collect($event): void
 	{
-		$steamid = $this->session->getSession()->steamid;
-
-		// TODO: ew
-		if (($event['attackerSteam'] ?? null) !== $steamid)
-			return;
+		$session = $this->manager->getSession();
 
 		$damage = $event['damage'];
+		$hitgroup = $event['hitgroup'];
 
-		$this->command('damage', 'INCRBY', [$damage]);
-		$id = $this->session->getSession()->id;
-		$session = $this->session->getSession();
-		Log::info("DamageTotalCollector adding $damage HP to $steamid on session $id", compact('event', 'session'));
+		$this->command('INCRBY', "damage.$hitgroup", [$damage]);
+		info("DamageTotalCollector adding $damage [$hitgroup] HP to $session->steamid on session $session->id", compact('event', 'session'));
 	}
 }
