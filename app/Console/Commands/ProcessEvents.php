@@ -45,6 +45,12 @@ class ProcessEvents extends Command
 			$rawEvent = Redis::connection('input')->lpop('sessions');
 			$event = json_decode($rawEvent, true);
 
+			if (!$event) {
+				info('Null event found', compact('rawEvent', 'event'));
+
+				return;
+			}
+			
 			$eventDispatcher->dispatchEvent($event);
 		}
     }
