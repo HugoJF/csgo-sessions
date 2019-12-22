@@ -2,7 +2,7 @@
 
 namespace App\Stats;
 
-class HitsPerWeaponStat extends GroupedDamageStat
+class HitsPerWeaponStat extends GroupedHitsStat
 {
 	protected $name = 'hits-by-weapon';
 
