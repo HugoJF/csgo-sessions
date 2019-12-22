@@ -19,8 +19,7 @@ class SessionController extends Controller
 	public function show(Session $session)
 	{
 		$builder = new SessionBuilder($session);
-
-		dd($builder->toArray());
+		$data = $builder->toArray()->toArray();
 
 		return view('session', compact('session', 'data'));
 	}
