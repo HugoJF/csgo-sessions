@@ -49,7 +49,7 @@ class ProcessEvents extends Command
 			if (!$event) {
 				info('Null event found', compact('rawEvent', 'event'));
 
-				return;
+				continue;
 			}
 
 			$eventDispatcher->dispatchEvent($event);
