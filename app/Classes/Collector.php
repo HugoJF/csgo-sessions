@@ -22,6 +22,11 @@ abstract class Collector
 		$this->manager = $session;
 	}
 
+	public function getCleanKey($string)
+	{
+		return preg_replace('/[^A-Za-z0-9_\.]/', '_', $string);
+	}
+
 	public function command(string $command, string $name, array $data)
 	{
 		$key = $this->manager->getRedisKey($name);

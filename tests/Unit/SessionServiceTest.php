@@ -8,6 +8,7 @@ use App\Server;
 use App\Services\SessionService;
 use App\Session;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Redis;
 use Tests\TestCase;
 
 class SessionServiceTest extends TestCase
@@ -39,7 +40,7 @@ class SessionServiceTest extends TestCase
 			'server_id' => $server->id,
 		]);
 
-		$this->service->closeActiveSession($this->genericSteamid);
+		$this->service->closeActiveSessions($this->genericSteamid, true);
 	}
 
 	public function test_close_active_sessions()
@@ -50,7 +51,7 @@ class SessionServiceTest extends TestCase
 			'server_id' => $server->id,
 		]);
 
-		$this->service->closeActiveSession($this->genericSteamid);
+		$this->service->closeActiveSessions($this->genericSteamid);
 
 		$this->assertDatabaseHas('sessions', [
 			'id'        => $session->id,
@@ -69,7 +70,7 @@ class SessionServiceTest extends TestCase
 		]);
 		factory(Session::class)->state('inactive')->create();
 
-		$this->service->closeActiveSession($this->genericSteamid);
+		$this->service->closeActiveSessions($this->genericSteamid);
 
 		$this->assertDatabaseHas('sessions', [
 			'id'        => $session->id,
@@ -117,5 +118,32 @@ class SessionServiceTest extends TestCase
 			'server_id' => $server->id,
 			'steamid'   => $this->genericSteamid,
 		]);
+	}
+
+	public function test_session_close_will_build_data()
+	{
+		Redis::command('flushall');
+
+		$server = factory(Server::class)->create();
+
+		$session = factory(Session::class)->state('active')->create(['server_id' => $server->id]);
+
+		$data = [
+			'a' => 10,
+			'b' => 20,
+			'c' => 30,
+		];
+
+		foreach ($data as $key => $value) {
+			Redis::set("$session->id.$key", $value);
+		}
+
+		$this->service->closeActiveSessions($session->steamid);
+
+		$session = Session::find($session->id);
+
+		$metrics = json_decode($session->metrics, true);
+
+		$this->assertEquals($data, $metrics);
 	}
 }

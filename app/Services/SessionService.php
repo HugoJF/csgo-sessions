@@ -6,23 +6,44 @@ use App\Classes\SessionManager;
 use App\Exceptions\MultipleSessionsException;
 use App\Exceptions\UntrackedServerException;
 use App\Session;
+use Exception;
+use Illuminate\Support\Facades\Redis;
 
 class SessionService
 {
-	public function closeActiveSession($steamid)
+	public function closeActiveSessions($steamid, $strict = false)
 	{
 		$sessions = Session::where('steamid', $steamid)->where('active', true)->get();
 
-		if ($sessions->count() > 1)
+		if ($strict && $sessions->count() > 1)
 			throw new MultipleSessionsException($steamid);
 
-		$session = $sessions->first();
+		foreach ($sessions as $session) {
+			$session->steamid = $steamid;
+			$session->active = false;
+			$session->closed_at = now();
 
-		if (!$session)
-			return;
+			$this->buildSession($session);
+		}
+	}
 
-		$session->steamid = $steamid;
-		$session->active = false;
+	public function buildSession(Session $session)
+	{
+		$data = [];
+		$keys = Redis::keys("$session->id.*");
+
+		foreach ($keys as $key) {
+			preg_match('/\.[A-Za-z0-9]+\.([A-Za-z0-9_\.]+)$/', $key, $matches);
+			if (count($matches) !== 2)
+				throw new Exception("Failed to extract stat name from `$key`");
+
+			$name = $matches[1];
+			$value = Redis::connection('input')->get($key);
+
+			$data[ $name ] = $value;
+		}
+
+		$session->metrics = json_encode($data);
 		$session->save();
 	}
 
@@ -40,7 +61,6 @@ class SessionService
 		]);
 	}
 
-	/** @deprecated */
 	public function getActiveSessionManagersByServer()
 	{
 		return $this->getActiveSessions()->mapToGroups(function ($session) {

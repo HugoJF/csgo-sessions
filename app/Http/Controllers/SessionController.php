@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Classes\SessionBuilder;
 use App\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
@@ -17,12 +18,9 @@ class SessionController extends Controller
 
 	public function show(Session $session)
 	{
-		$keys = collect(Redis::command('keys', ["$session->id.*"]));
+		$builder = new SessionBuilder($session);
 
-		$data = $keys->mapWithKeys(function ($key) use ($session) {
-			$value = Redis::connection('input')->get($key);
-			return [$key => $value];
-		});
+		dd($builder->toArray());
 
 		return view('session', compact('session', 'data'));
 	}

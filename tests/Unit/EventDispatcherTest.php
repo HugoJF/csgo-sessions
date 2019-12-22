@@ -116,7 +116,7 @@ class EventDispatcherTest extends TestCase
 		$sessionService->shouldReceive('getActiveSessionManagersByServer')
 					   ->once()
 					   ->andReturn([]);
-		$sessionService->shouldReceive('closeActiveSession')
+		$sessionService->shouldReceive('closeActiveSessions')
 					   ->withArgs([$this->connectData['playerSteamId']])
 					   ->once();
 

@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Session extends Model
 {
+	protected $dates = ['closed_at'];
+
 	public function user()
 	{
 		return $this->belongsTo(User::class);

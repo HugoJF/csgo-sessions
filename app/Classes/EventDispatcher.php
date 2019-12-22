@@ -75,7 +75,7 @@ class EventDispatcher
 		if (!$steamid)
 			throw new Exception("PlayerDisconnect event did not pass SteamID");
 
-		$this->sessionService->closeActiveSession($steamid);
+		$this->sessionService->closeActiveSessions($steamid);
 	}
 
 	protected function handleConnect(array $event): void

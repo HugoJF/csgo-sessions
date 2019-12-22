@@ -2,7 +2,6 @@
 
 /** @var Factory $factory */
 
-use App\Model;
 use App\Server;
 use App\Session;
 use Faker\Generator as Faker;

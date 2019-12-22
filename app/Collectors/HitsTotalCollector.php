@@ -6,7 +6,7 @@ use App\Classes\Collector;
 
 class HitsTotalCollector extends Collector
 {
-	protected $expects = ['hitgroup', 'attackerSteam'];
+	protected $expects = ['hitgroup', 'weapon', 'attackerSteam'];
 	protected $acceptedEvents = ['PlayerDamage'];
 	protected $eventOwnerKey = ['PlayerDamage' => 'attackerSteam'];
 
@@ -14,9 +14,10 @@ class HitsTotalCollector extends Collector
 	{
 		$session = $this->manager->getSession();
 
-		$hitgroup = $event['hitgroup'];
+		$hitgroup = $this->getCleanKey($event['hitgroup']);
+		$weapon = $this->getCleanKey($event['weapon']);
 
-		$this->command('INCRBY', "hits.$hitgroup", [1]);
+		$this->command('INCRBY', "hits.$weapon.$hitgroup", [1]);
 		info("HitsTotalCollector adding 1 hit [$hitgroup] to $session->steamid on session $session->id", compact('event', 'session'));
 	}
 }
