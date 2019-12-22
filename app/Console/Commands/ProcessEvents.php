@@ -42,14 +42,15 @@ class ProcessEvents extends Command
 		$eventDispatcher = app(EventDispatcher::class);
 
 		$startTotal = microtime(true);
-		for ($i = 0; $i < 1000; $i++) {
+		$i = 0;
+		for (; $i < 1000; $i++) {
 			$rawEvent = Redis::connection('input')->lpop('sessions');
 			$event = json_decode($rawEvent, true);
 
 			if (!$event) {
 				info('Null event found', compact('rawEvent', 'event'));
 
-				continue;
+				break;
 			}
 
 			$eventDispatcher->dispatchEvent($event);
@@ -58,6 +59,6 @@ class ProcessEvents extends Command
 
 		$totalDuration = $endTotal - $startTotal;
 
-		$this->info("Processing took: $totalDuration seconds");
+		$this->info("Processing took: $totalDuration seconds to process $i events");
     }
 }
