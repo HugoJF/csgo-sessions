@@ -33,7 +33,7 @@ class SessionService
 		$keys = Redis::keys("$session->id.*");
 
 		foreach ($keys as $key) {
-			preg_match('/\.[A-Za-z0-9]+\.([A-Za-z0-9_\.]+)$/', $key, $matches);
+			preg_match('/\.[A-Za-z0-9_-]+\.([A-Za-z0-9_\.]+)$/', $key, $matches);
 			if (count($matches) !== 2)
 				throw new Exception("Failed to extract stat name from `$key`");
 
