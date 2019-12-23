@@ -48,7 +48,7 @@
 <body class="bg-grey-900">
 <div class="container-fluid">
     <div class="row">
-        <main class="w-full py-64">
+        <main class="w-full py-16">
             @yield('content')
         </main>
     </div>

@@ -3,17 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Classes\SessionBuilder;
+use App\Http\Requests\SessionSearchRequest;
 use App\Session;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redis;
 
 class SessionController extends Controller
 {
 	public function index()
 	{
-		$sessions = Session::all();
-
-		return view('sessions', compact('sessions'));
+		return redirect()->route('sessions.search');
 	}
 
 	public function show(Session $session)
@@ -22,5 +19,21 @@ class SessionController extends Controller
 		$data = $builder->toArray()->toArray();
 
 		return view('session', compact('session', 'data'));
+	}
+
+	public function search(SessionSearchRequest $request)
+	{
+		$id = steamid2($request->input('id'));
+
+		$sessions = Session::where('steamid', $id)->get();
+
+		return view('sessions', compact('sessions'));
+	}
+
+	public function random()
+	{
+		$session = Session::query()->inRandomOrder()->first(['id']);
+
+		return redirect()->route('sessions.show', $session);
 	}
 }

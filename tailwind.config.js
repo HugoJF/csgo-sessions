@@ -36,6 +36,7 @@ module.exports = {
         700: '#c53030',
         800: '#9b2c2c',
         900: '#742a2a',
+        950: '#4a1112',
       },
       orange: {
         100: '#fffaf0',
@@ -146,6 +147,9 @@ module.exports = {
       '48': '12rem',
       '56': '14rem',
       '64': '16rem',
+      '128': '32rem',
+      '192': '48rem',
+      '256': '64rem',
     },
     backgroundColor: theme => theme('colors'),
     backgroundPosition: {

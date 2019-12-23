@@ -76,3 +76,32 @@ body {
  * @import "utilities/background-patterns";
  * @import "utilities/skew-transforms";
  */
+
+
+/**
+ * Transitions
+ */
+
+.trans {
+    transition: all .25s;
+}
+
+.trans-bg {
+    transition-property: background;
+}
+
+.trans-slow {
+    transition-duration: .5s;
+}
+
+.trans-slower {
+    transition-duration: .5s;
+}
+
+.trans-fast {
+    transition-duration: .15s;
+}
+
+.trans-faster {
+    transition-duration: .075s;
+}
