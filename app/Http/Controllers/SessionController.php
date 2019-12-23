@@ -10,7 +10,7 @@ class SessionController extends Controller
 {
 	public function index()
 	{
-		return redirect()->route('sessions.search');
+		return redirect()->route('search');
 	}
 
 	public function show(Session $session)
