@@ -30,6 +30,9 @@ class ServerService
 			HitsTotalCollector::class,
 			DeathsTotalCollector::class,
 			KillsTotalCollector::class,
+			// total armor damage done
+			// total armor damage received
+			// hits received
 		]);
 	}
 

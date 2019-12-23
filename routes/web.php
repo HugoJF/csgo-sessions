@@ -36,7 +36,7 @@ Route::get('/sessions/search', 'SessionController@search')->name('sessions.searc
 Route::get('/sessions/{session}', 'SessionController@show')->name('sessions.show');
 Route::get('search', function () {
 	return view('search');
-});
+})->name('search');
 Route::get('ui', function () {
 	return view('ui');
 });
