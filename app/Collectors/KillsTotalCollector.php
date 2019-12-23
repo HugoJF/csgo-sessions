@@ -16,7 +16,7 @@ class KillsTotalCollector extends Collector
 
 		$targetHealth = $event['targetHealth'];
 
-		if ($targetHealth !== 0)
+		if ($targetHealth != 0)
 			return;
 
 		$weapon = $this->getCleanKey($event['weapon']);

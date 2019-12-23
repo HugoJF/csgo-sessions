@@ -16,13 +16,13 @@ class DeathsTotalCollector extends Collector
 
 		$targetHealth = $event['targetHealth'];
 
-		if ($targetHealth !== 0)
+		if ($targetHealth != 0)
 			return;
 
 		$weapon = $this->getCleanKey($event['weapon']);
 		$hitgroup = $this->getCleanKey($event['hitgroup']);
 
-		$this->command('INCRBY', "kills.$weapon.$hitgroup", [1]);
+		$this->command('INCRBY', "deaths.$weapon.$hitgroup", [1]);
 		info("DamageTotalCollector adding 1 [$hitgroup] death to $session->steamid on session $session->id", compact('event', 'session'));
 	}
 }
