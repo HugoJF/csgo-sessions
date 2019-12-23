@@ -85,7 +85,7 @@ abstract class Collector
 
 		$ownerKey = $this->eventOwnerKey[ $type ];
 
-		return $event[ $ownerKey ] === $this->manager->getSession()->steamid;
+		return steamid2($event[ $ownerKey ]) === $this->manager->getSession()->steamid;
 	}
 
 	abstract public function collect(array $event): void;
