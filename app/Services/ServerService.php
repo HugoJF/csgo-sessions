@@ -2,8 +2,11 @@
 
 namespace App\Services;
 
+use App\Collectors\DamageReceivedTotalCollector;
 use App\Collectors\DamageTotalCollector;
+use App\Collectors\DeathsTotalCollector;
 use App\Collectors\HitsTotalCollector;
+use App\Collectors\KillsTotalCollector;
 use App\Server;
 use App\Stats\DamagePerHitGroupStat;
 use App\Stats\DamagePerWeaponStat;
@@ -23,7 +26,10 @@ class ServerService
 		// TODO: implement
 		return collect([
 			DamageTotalCollector::class,
+			DamageReceivedTotalCollector::class,
 			HitsTotalCollector::class,
+			DeathsTotalCollector::class,
+			KillsTotalCollector::class,
 		]);
 	}
 

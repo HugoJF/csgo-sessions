@@ -28,6 +28,11 @@ class SessionBuilder
 		$this->initStats($stats);
 	}
 
+	public function getSession()
+	{
+		return $this->session;
+	}
+
 	protected function cacheSessionData()
 	{
 		$this->data = json_decode($this->session->metrics, true);
