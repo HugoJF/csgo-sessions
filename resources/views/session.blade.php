@@ -27,15 +27,17 @@
                     @foreach ($data['damage-by-weapon'] as $weapon => $hits)
                         <tr>
                             <td class="font-medium text-3xl text-grey-500">{{ $loop->index + 1}}</td>
-                            {{--                            <td><img class="text-grey-100 fill-current mx-4 h-8 opacity-25" src="https://upload.wikimedia.org/wikipedia/commons/d/d9/AK-47_silhouette.svg" alt=""></td>--}}
-                            <td class="pl-4">
+                            <td class="px-3 font-csgo text-center text-2xl text-grey-700">
+                                {{ csgo_getchar_by_name($weapon) }}
+                            </td>
+                            <td class="">
                                 <div class="">
                                     <p class="font-medium uppercase">{{ $weapon }}</p>
                                     <p class="text-grey-600 font-normal tracking-tight">{{ $hits }} HP</p>
                                 </div>
                             </td>
                         </tr>
-                        @endforeach
+                    @endforeach
                 </table>
             </div>
             

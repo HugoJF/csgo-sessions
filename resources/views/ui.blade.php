@@ -36,7 +36,9 @@
                     @for($i = 0; $i < 5; $i++)
                         <tr>
                             <td class="font-medium text-3xl text-grey-500">{{ $i }}</td>
-                            {{--                            <td><img class="text-grey-100 fill-current mx-4 h-8 opacity-25" src="https://upload.wikimedia.org/wikipedia/commons/d/d9/AK-47_silhouette.svg" alt=""></td>--}}
+                            <td class="font-csgo">
+                            
+                            </td>
                             <td class="pl-4">
                                 <div class="">
                                     <p class="font-medium uppercase">{{ $weapons[$i] }}</p>

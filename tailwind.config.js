@@ -234,6 +234,9 @@ module.exports = {
         '"Segoe UI Symbol"',
         '"Noto Color Emoji"',
       ],
+      csgo: [
+        'csgo',
+      ],
       serif: [
         'Georgia',
         'Cambria',
