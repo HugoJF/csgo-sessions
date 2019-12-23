@@ -88,7 +88,7 @@ class EventDispatcher
 		if (!$server)
 			throw new Exception('PlayerConnect event did not pass server address');
 
-		$session = $this->sessionService->create($steamid, $server);
+		$session = $this->sessionService->create(steamid2($steamid), $server);
 		if (!array_key_exists($server, $this->sessions))
 			$this->sessions[ $server ] = [];
 		$this->sessions[ $server ][] = new SessionManager($session);
