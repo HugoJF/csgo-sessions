@@ -57,9 +57,10 @@ class ProcessEvents extends Command
 		}
 		$endTotal = microtime(true);
 
-		$totalDuration = $endTotal - $startTotal;
+		$totalDuration = number_format($endTotal - $startTotal, 2);
+		$perEvent = number_format($totalDuration / $i * 1000, 1);
 
 		$this->info("Processing took: $totalDuration seconds to process $i events");
-		info("Processing took: $totalDuration seconds to process $i events");
+		info("Processing took: $totalDuration seconds to process $i events [$perEvent ms/event]");
     }
 }

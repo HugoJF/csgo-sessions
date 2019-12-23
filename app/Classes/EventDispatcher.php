@@ -38,6 +38,7 @@ class EventDispatcher
 	public function dispatchEvent($event)
 	{
 		$address = $event['server'];
+		// TODO: avoid querying database everytime
 		$server = $this->serverService->findServerByAddress($address);
 
 		if (!$server) {

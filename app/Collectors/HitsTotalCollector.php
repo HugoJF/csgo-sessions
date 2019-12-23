@@ -18,6 +18,6 @@ class HitsTotalCollector extends Collector
 		$weapon = $this->getCleanKey($event['weapon']);
 
 		$this->command('INCRBY', "hits.$weapon.$hitgroup", [1]);
-		info("HitsTotalCollector adding 1 hit [$hitgroup] to $session->steamid on session $session->id", compact('event', 'session'));
+//		info("HitsTotalCollector adding 1 hit [$hitgroup] to $session->steamid on session $session->id", compact('event', 'session'));
 	}
 }

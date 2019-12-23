@@ -23,6 +23,6 @@ class KillsTotalCollector extends Collector
 		$hitgroup = $this->getCleanKey($event['hitgroup']);
 
 		$this->command('INCRBY', "kills.$weapon.$hitgroup", [1]);
-		info("DamageTotalCollector adding 1 [$hitgroup] kill to $session->steamid on session $session->id", compact('event', 'session'));
+//		info("DamageTotalCollector adding 1 [$hitgroup] kill to $session->steamid on session $session->id", compact('event', 'session'));
 	}
 }
