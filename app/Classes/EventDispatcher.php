@@ -33,7 +33,7 @@ class EventDispatcher
 	{
 		$this->servers = Server::all()->mapWithKeys(function (Server $server) {
 			return [$server->address => $server];
-		});
+		})->toArray();
 	}
 
 	/**
@@ -49,7 +49,7 @@ class EventDispatcher
 		$address = $event['server'];
 
 		if (!array_key_exists($address, $this->servers)) {
-			info("Received event for server $address that is not being tracked", compact('event'));
+			info("Received event for server $address that is not being tracked", ['servers' => $this->servers]);
 
 			return;
 		}
