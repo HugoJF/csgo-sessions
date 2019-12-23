@@ -17,6 +17,7 @@ class EventDispatcher
 	protected $serverService;
 
 	public $sessions;
+	private $servers;
 
 	public function __construct(SessionService $sessionService, EventService $eventService, ServerService $serverService)
 	{
@@ -25,6 +26,14 @@ class EventDispatcher
 		$this->serverService = $serverService;
 
 		$this->loadActiveSessions();
+		$this->loadTrackedServers();
+	}
+
+	private function loadTrackedServers()
+	{
+		$this->servers = Server::all()->mapWithKeys(function (Server $server) {
+			return [$server->address => $server];
+		});
 	}
 
 	/**
@@ -38,10 +47,8 @@ class EventDispatcher
 	public function dispatchEvent($event)
 	{
 		$address = $event['server'];
-		// TODO: avoid querying database everytime
-		$server = $this->serverService->findServerByAddress($address);
 
-		if (!$server) {
+		if (!array_key_exists($address, $this->servers)) {
 			info("Received event for server $address that is not being tracked", compact('event'));
 
 			return;
