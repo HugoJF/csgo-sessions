@@ -19,7 +19,7 @@ class DamageReceivedTotalCollector extends Collector
 		$weapon = $this->getCleanKey($event['weapon']);
 		$hitgroup = $this->getCleanKey($event['hitgroup']);
 
-		$this->command('INCRBY', "damage.$weapon.$hitgroup", [$damage]);
+		$this->command('INCRBY', "damage-received.$weapon.$hitgroup", [$damage]);
 //		info("DamageTotalCollector adding $damage [$hitgroup] HP to $session->steamid on session $session->id", compact('event', 'session'));
 	}
 }
