@@ -14,13 +14,13 @@
 // normalizacao das steamid3
 // corrigir attackersteam no pipeline
 // interface de busca de steamid
-// aumentar file do redis
+// aumentar fila do redis
 // adicionar job para finalizacao de sessoes stale
 // adicionar sentry
-// logs de performance
-// tracking de kills
-// tracking de deaths
-// adicionar tempo na metrica
+// XXXXXXXXXXXX logs de performance
+// XXXXXXXXXX tracking de kills
+// XXXXXXXXXX tracking de deaths
+// XXXXXXXXXXXXXX adicionar tempo na metrica
 // adicionar suporte pro servidor 2 e 3
 // divulgar
 // google analytics

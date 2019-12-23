@@ -60,5 +60,6 @@ class ProcessEvents extends Command
 		$totalDuration = $endTotal - $startTotal;
 
 		$this->info("Processing took: $totalDuration seconds to process $i events");
+		info("Processing took: $totalDuration seconds to process $i events");
     }
 }
