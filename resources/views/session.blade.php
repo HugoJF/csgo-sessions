@@ -116,7 +116,7 @@
             </div>
         </div>
         <div class="flex mt-8 justify-center">
-            <a href="{{ route('search') }}" class="trans-fast flex items-center justify-center
+            <a href="{{ route('sessions.search', ['id' => $session->steamid]) }}" class="trans-fast flex items-center justify-center
                     h-16 w-32
                     font-mono text-lg
                     text-blue-100 hover:text-white
