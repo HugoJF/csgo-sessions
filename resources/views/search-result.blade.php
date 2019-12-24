@@ -7,10 +7,13 @@
         </div>
         <div class="flex-grow-0 text-sm text-grey-600">{{ $session->created_at }}</div>
     </div>
-    <a href="{{ route('sessions.show', $session) }}" class="trans-fast flex items-center justify-center
+    @if(!$session->active)
+        <a href="{{ route('sessions.show', $session) }}" class="trans-fast flex items-center justify-center
                         px-5 py-3
                         font-mono text-lg
                         text-blue-100 hover:text-white
                         no-underline
                         bg-blue-800 hover:bg-blue-700 hover:shadow">Ver</a>
+    @endif
+
 </div>
