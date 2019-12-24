@@ -61,10 +61,15 @@ class CalculateCompression extends Command
 			$bzip2 += strlen($bzipped2);
 		}
 
+		$bzipRatio = number_format($bzip / $current, 1);
+		$bzip2Ratio = number_format($bzip2 / $current, 1);
+		$gzip2Ratio = number_format($gzip2 / $current, 1);
+		$gzipRatio = number_format($gzip / $current, 1);
+
 		$this->info("Total raw data: $current bytes");
-		$this->info("Total bzip (1x): $bzip bytes");
-		$this->info("Total bzip (2x): $bzip2 bytes");
-		$this->info("Total gzip (1x): $gzip bytes");
-		$this->info("Total gzip (2x): $gzip2 bytes");
+		$this->info("Total bzip (1x): $bzip bytes $bzipRatio %");
+		$this->info("Total bzip (2x): $bzip2 bytes $bzip2Ratio %");
+		$this->info("Total gzip (1x): $gzip bytes $gzipRatio %");
+		$this->info("Total gzip (2x): $gzip2 bytes $gzip2Ratio %");
 	}
 }
