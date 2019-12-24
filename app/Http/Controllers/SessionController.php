@@ -25,9 +25,9 @@ class SessionController extends Controller
 	{
 		$id = steamid2($request->input('id'));
 
-		$sessions = Session::where('steamid', $id)->get();
+		$sessions = Session::with('server')->where('steamid', $id)->orderBy('created_at', 'DESC')->get();
 
-		return view('sessions', compact('sessions'));
+		return view('search', compact('sessions'));
 	}
 
 	public function random()
