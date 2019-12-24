@@ -2,19 +2,10 @@
 
 namespace App\Stats;
 
-abstract class GroupedKillsStat extends BaseSegmentedStat
+abstract class GroupedKillsStat extends BaseGroupedStat
 {
-	abstract protected function getRelevantKey($weapon, $hitgroup);
-
-	function computeStat($weapon, $type, $hitgroup, $value)
+	protected function getMetricType()
 	{
-		if ($type !== 'kills')
-			return;
-
-		$key = $this->getRelevantKey($weapon, $hitgroup);
-		if (!array_key_exists($key, $this->cache))
-			$this->cache[ $key ] = 0;
-
-		$this->cache[ $key ] += $value;
+		return 'kills';
 	}
 }

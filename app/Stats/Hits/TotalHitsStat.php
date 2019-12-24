@@ -2,19 +2,14 @@
 
 namespace App\Stats\Hits;
 
-use App\Stats\BaseSegmentedStat;
+use App\Stats\Damage\BaseTotalStat;
 
-class TotalHitsStat extends BaseSegmentedStat
+class TotalHitsStat extends BaseTotalStat
 {
 	protected $name = 'hits-total';
-	
-	function computeStat($weapon, $type, $hitgroup, $value)
-	{
-		if ($type !== 'hits')
-			return;
-		if (!is_numeric($this->cache))
-			$this->cache = 0;
 
-		$this->cache += $value;
+	protected function getMetricType()
+	{
+		return 'hits';
 	}
 }

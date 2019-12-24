@@ -2,12 +2,17 @@
 
 namespace App\Stats\Deaths;
 
-use App\Stats\BaseSegmentedStat;
+use App\Stats\Damage\BaseTotalStat;
 
-class TotalDeathsStat extends BaseSegmentedStat
+class TotalDeathsStat extends BaseTotalStat
 {
 	protected $name = 'deaths-total';
-	
+
+	protected function getMetricType()
+	{
+		return 'deaths';
+	}
+
 	function computeStat($weapon, $type, $hitgroup, $value)
 	{
 		if ($type !== 'deaths')

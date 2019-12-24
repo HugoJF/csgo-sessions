@@ -2,19 +2,14 @@
 
 namespace App\Stats\Kills;
 
-use App\Stats\BaseSegmentedStat;
+use App\Stats\Damage\BaseTotalStat;
 
-class TotalKillsStat extends BaseSegmentedStat
+class TotalKillsStat extends BaseTotalStat
 {
 	protected $name = 'kills-total';
-	
-	function computeStat($weapon, $type, $hitgroup, $value)
-	{
-		if ($type !== 'kills')
-			return;
-		if (!is_numeric($this->cache))
-			$this->cache = 0;
 
-		$this->cache += $value;
+	protected function getMetricType()
+	{
+		return 'kills';
 	}
 }

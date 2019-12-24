@@ -2,19 +2,12 @@
 
 namespace App\Stats\Damage;
 
-use App\Stats\BaseSegmentedStat;
-
-class TotalDamageStat extends BaseSegmentedStat
+class TotalDamageStat extends BaseTotalStat
 {
 	protected $name = 'damage-total';
 
-	function computeStat($weapon, $type, $hitgroup, $value)
+	protected function getMetricType()
 	{
-		if ($type !== 'damage')
-			return;
-		if (!is_numeric($this->cache))
-			$this->cache = 0;
-
-		$this->cache += $value;
+		return 'damage';
 	}
 }
