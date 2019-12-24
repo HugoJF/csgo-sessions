@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Classes\SessionBuilder;
 use App\Http\Requests\SessionSearchRequest;
 use App\Session;
+use Exception;
 
 class SessionController extends Controller
 {
@@ -20,6 +21,7 @@ class SessionController extends Controller
 
 		return view('session', compact('session', 'data'));
 	}
+
 	public function raw(Session $session)
 	{
 		$builder = new SessionBuilder($session);
@@ -39,7 +41,10 @@ class SessionController extends Controller
 
 	public function random()
 	{
-		$session = Session::query()->inRandomOrder()->first(['id']);
+		$session = Session::query()->inRandomOrder(254)->first(['id']);
+
+		if (!$session)
+			throw new Exception('It seems like the database is empty');
 
 		return redirect()->route('sessions.show', $session);
 	}

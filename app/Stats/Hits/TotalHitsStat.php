@@ -2,7 +2,7 @@
 
 namespace App\Stats\Hits;
 
-use App\Stats\Damage\BaseTotalStat;
+use App\Stats\BaseTotalStat;
 
 class TotalHitsStat extends BaseTotalStat
 {

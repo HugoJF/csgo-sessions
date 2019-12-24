@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Stats\Damage;
+namespace App\Stats;
 
 use App\Stats\BaseSegmentedStat;
 

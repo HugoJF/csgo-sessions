@@ -2,7 +2,7 @@
 
 namespace App\Stats\Deaths;
 
-use App\Stats\Damage\BaseTotalStat;
+use App\Stats\BaseTotalStat;
 
 class TotalDeathsStat extends BaseTotalStat
 {

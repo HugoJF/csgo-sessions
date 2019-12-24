@@ -21,6 +21,8 @@ class HeadshotPercentageStat extends Stat
 		$kills = $totalKillsStat->getValue();
 		$hs = $killsPerGroupStat->getValue()['head'] ?? 0;
 
+		dd($hs);
+
 		if ($kills > 0)
 			return $hs / $kills * 100;
 		else
