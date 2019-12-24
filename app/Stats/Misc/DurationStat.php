@@ -7,6 +7,8 @@ use App\Session;
 
 class DurationStat extends Stat
 {
+	protected $name = 'duration';
+
 	protected function compute()
 	{
 		/** @var Session $session */

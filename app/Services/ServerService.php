@@ -11,6 +11,8 @@ use App\Server;
 use App\Stats\Damage\DamagePerHitGroupStat;
 use App\Stats\Damage\DamagePerWeaponStat;
 use App\Stats\DeathStat;
+use App\Stats\Misc\DamagePerMinStat;
+use App\Stats\Misc\DurationStat;
 use App\Stats\Misc\HeadshotPercentageStat;
 use App\Stats\Hits\HitsPerHitGroupStat;
 use App\Stats\Hits\HitsPerWeaponStat;
@@ -22,6 +24,7 @@ use App\Stats\Damage\TotalDamageStat;
 use App\Stats\Deaths\TotalDeathsStat;
 use App\Stats\Hits\TotalHitsStat;
 use App\Stats\Kills\TotalKillsStat;
+use App\Stats\Misc\KillsPerMinStat;
 
 class ServerService
 {
@@ -59,8 +62,11 @@ class ServerService
 
 			TotalDeathsStat::class,
 
+			DurationStat::class,
 			HeadshotPercentageStat::class,
 			KdrStat::class,
+			KillsPerMinStat::class,
+			DamagePerMinStat::class,
 		]);
 	}
 

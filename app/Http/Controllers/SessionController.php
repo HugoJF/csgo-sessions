@@ -41,7 +41,7 @@ class SessionController extends Controller
 
 	public function random()
 	{
-		$session = Session::query()->inRandomOrder(254)->first(['id']);
+		$session = Session::query()->inRandomOrder()->first(['id']);
 
 		if (!$session)
 			throw new Exception('It seems like the database is empty');

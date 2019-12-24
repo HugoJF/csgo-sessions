@@ -2,11 +2,11 @@
 
 namespace App\Stats;
 
-use App\Stats\BaseSegmentedStat;
-
 abstract class BaseTotalStat extends BaseSegmentedStat
 {
 	protected $name = 'damage-total';
+
+	protected $cache = 0;
 
 	abstract protected function getMetricType();
 

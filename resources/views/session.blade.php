@@ -79,42 +79,34 @@
                     <div class="flex flex-col w-1/2 justify-center p-3 text-center">
                         <h3 class="text-grey-500 text-xl font-light uppercase">KILLS / MIN</h3>
                         <h2 class="text-grey-200 font-normal text-3xl tracking-tight">
-                            {{ number_format(($data['kills-total'] ?? 0) / $session->duration, 1)}}
+                            {{ number_format($data['kills-per-min'], 1) ?? 'N/A' }}
                         </h2>
-                        <small class="text-grey-400 text-base font-light tracking-tight">{{ $session->created_at->diffForHumans($session->closed_at, true) }} total</small>
+                        <small class="text-grey-400 text-base font-light tracking-tight">{{ $data['duration'] ?? 'N/A' }} minutes</small>
                     </div>
                     
                     <!-- Damage/Min -->
                     <div class="flex flex-col w-1/2 justify-center p-3 text-center">
                         <h3 class="text-grey-500 text-xl font-light uppercase">DAMAGE / MIN</h3>
                         <h2 class="text-grey-200 font-normal text-3xl tracking-tight">
-                            {{ number_format(($data['damage-total'] ?? 0) / $session->duration, 1)}}
+                            {{ number_format($data['damage-per-min'], 1) ?? 'N/A' }}
                         </h2>
-                        <small class="text-grey-400 text-base font-light tracking-tight">{{ $data['damage-total'] ?? 0 }} damage</small>
+                        <small class="text-grey-400 text-base font-light tracking-tight">{{ $data['damage-total'] ?? 'N/A' }} damage</small>
                     </div>
-    
+                    
                     <!-- KDR -->
                     <div class="flex flex-col w-1/2 justify-center p-3 text-center">
                         <h3 class="text-grey-500 text-xl font-light uppercase">KDR</h3>
                         <h2 class="text-grey-200 font-normal text-3xl tracking-tight">
-                            @if($data['deaths-total'] > 0)
-                                {{ number_format($data['kdr'], 1) }}
-                            @else
-                                N/A
-                            @endif
+                            {{ number_format($data['kdr'], 1) }}
                         </h2>
-                        <small class="text-grey-400 text-base font-light tracking-tight">{{ $data['kills-total'] ?? 0 }} kills</small>
+                        <small class="text-grey-400 text-base font-light tracking-tight">{{ $data['kills-total'] ?? 'N/A' }} kills</small>
                     </div>
-    
+                    
                     <!-- HS% -->
                     <div class="flex flex-col w-1/2 justify-center p-3 text-center">
-                        <h3 class="text-grey-500 text-xl font-light uppercase">KDR</h3>
+                        <h3 class="text-grey-500 text-xl font-light uppercase">HS %</h3>
                         <h2 class="text-grey-200 font-normal text-3xl tracking-tight">
-                            @if($data['kills-total'] > 0)
-                                {{ number_format($data['hs-percentage'], 1) }}%
-                            @else
-                                N/A
-                            @endif
+                            {{ number_format($data['hs-percentage'], 1) }}%
                         </h2>
                         <small class="text-grey-400 text-base font-light tracking-tight">{{ $data['kills-by-hitgroup']['head'] ?? 0 }} headshots</small>
                     </div>

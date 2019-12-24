@@ -18,6 +18,12 @@ class KdrStat extends Stat
 		/** @var TotalDeathsStat $deathStat */
 		$deathStat = $this->getStat(TotalDeathsStat::class);
 
-		return $killStat->getValue() / $deathStat->getValue();
+		$kills = $killStat->getValue();
+		$deaths = $deathStat->getValue();
+
+		if ($deaths > 0)
+			return $kills / $deaths;
+		else
+			return 0;
 	}
 }
