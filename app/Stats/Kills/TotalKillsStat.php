@@ -1,14 +1,16 @@
 <?php
 
-namespace App\Stats;
+namespace App\Stats\Kills;
 
-class TotalDeathsStat extends BaseSegmentedStat
+use App\Stats\BaseSegmentedStat;
+
+class TotalKillsStat extends BaseSegmentedStat
 {
-	protected $name = 'deaths-total';
+	protected $name = 'kills-total';
 	
 	function computeStat($weapon, $type, $hitgroup, $value)
 	{
-		if ($type !== 'deaths')
+		if ($type !== 'kills')
 			return;
 		if (!is_numeric($this->cache))
 			$this->cache = 0;

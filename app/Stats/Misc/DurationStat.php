@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Stats;
+namespace App\Stats\Misc;
 
 use App\Classes\Stat;
 use App\Session;

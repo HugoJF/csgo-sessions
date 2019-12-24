@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Stats;
+namespace App\Stats\Damage;
+
+use App\Stats\BaseSegmentedStat;
 
 class TotalDamageStat extends BaseSegmentedStat
 {

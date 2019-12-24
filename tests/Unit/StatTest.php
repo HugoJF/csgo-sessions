@@ -4,12 +4,12 @@ namespace Tests\Unit;
 
 use App\Classes\SessionBuilder;
 use App\Session;
-use App\Stats\DamagePerHitGroupStat;
-use App\Stats\DamagePerWeaponStat;
-use App\Stats\HitsPerHitGroupStat;
-use App\Stats\HitsPerWeaponStat;
-use App\Stats\TotalDamageStat;
-use App\Stats\TotalHitsStat;
+use App\Stats\Damage\DamagePerHitGroupStat;
+use App\Stats\Damage\DamagePerWeaponStat;
+use App\Stats\Hits\HitsPerHitGroupStat;
+use App\Stats\Hits\HitsPerWeaponStat;
+use App\Stats\Damage\TotalDamageStat;
+use App\Stats\Hits\TotalHitsStat;
 use Tests\TestCase;
 
 class StatTest extends TestCase

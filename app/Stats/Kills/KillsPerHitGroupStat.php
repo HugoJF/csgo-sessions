@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Stats;
+namespace App\Stats\Kills;
+
+use App\Stats\GroupedKillsStat;
 
 class KillsPerHitGroupStat extends GroupedKillsStat
 {

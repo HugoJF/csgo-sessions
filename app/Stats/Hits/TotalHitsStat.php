@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Stats;
+namespace App\Stats\Hits;
+
+use App\Stats\BaseSegmentedStat;
 
 class TotalHitsStat extends BaseSegmentedStat
 {

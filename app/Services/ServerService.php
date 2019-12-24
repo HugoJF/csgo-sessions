@@ -8,20 +8,20 @@ use App\Collectors\DeathsTotalCollector;
 use App\Collectors\HitsTotalCollector;
 use App\Collectors\KillsTotalCollector;
 use App\Server;
-use App\Stats\DamagePerHitGroupStat;
-use App\Stats\DamagePerWeaponStat;
+use App\Stats\Damage\DamagePerHitGroupStat;
+use App\Stats\Damage\DamagePerWeaponStat;
 use App\Stats\DeathStat;
-use App\Stats\HeadshotPercentageStat;
-use App\Stats\HitsPerHitGroupStat;
-use App\Stats\HitsPerWeaponStat;
-use App\Stats\KdrStat;
-use App\Stats\KillsPerHitGroupStat;
-use App\Stats\KillsPerWeaponStat;
+use App\Stats\Misc\HeadshotPercentageStat;
+use App\Stats\Hits\HitsPerHitGroupStat;
+use App\Stats\Hits\HitsPerWeaponStat;
+use App\Stats\Misc\KdrStat;
+use App\Stats\Kills\KillsPerHitGroupStat;
+use App\Stats\Kills\KillsPerWeaponStat;
 use App\Stats\KillStat;
-use App\Stats\TotalDamageStat;
-use App\Stats\TotalDeathsStat;
-use App\Stats\TotalHitsStat;
-use App\Stats\TotalKillsStat;
+use App\Stats\Damage\TotalDamageStat;
+use App\Stats\Deaths\TotalDeathsStat;
+use App\Stats\Hits\TotalHitsStat;
+use App\Stats\Kills\TotalKillsStat;
 
 class ServerService
 {

@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Stats;
+namespace App\Stats\Damage;
+
+use App\Stats\GroupedDamageStat;
 
 class DamagePerWeaponStat extends GroupedDamageStat
 {
