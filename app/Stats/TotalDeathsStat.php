@@ -13,6 +13,6 @@ class TotalDeathsStat extends BaseSegmentedStat
 		if (!is_numeric($this->cache))
 			$this->cache = 0;
 
-		$this->cache += 1;
+		$this->cache += $value;
 	}
 }
