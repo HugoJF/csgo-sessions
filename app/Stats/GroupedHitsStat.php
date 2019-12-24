@@ -6,6 +6,6 @@ abstract class GroupedHitsStat extends BaseGroupedStat
 {
 	protected function getMetricType()
 	{
-		return 'kills';
+		return 'hits';
 	}
 }
