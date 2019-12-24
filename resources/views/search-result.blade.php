@@ -5,7 +5,7 @@
             <span>{{ $session->server->address }}</span>
             <small class="text-grey-600">por {{ $session->duration }} minutos</small>
         </div>
-        <div class="flex-grow-0 text-sm text-grey-600">{{ $session->created_at }}</div>
+        <div class="flex-grow-0 text-sm text-grey-600">{{ $session->created_at }} ({{ $session->created_at->diffForHumans() }})</div>
     </div>
     @if(!$session->active)
         <a href="{{ route('sessions.show', $session) }}" class="trans-fast flex items-center justify-center
