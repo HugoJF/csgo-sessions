@@ -39,15 +39,17 @@
                     bg-blue-800 hover:bg-blue-700 hover:shadow">Random</a>
         </div>
         
-        <div class="flex flex-col w-3/4 font-mono">
-            <h2 class="my-12 text-xl text-center">
-                Sessões para Steam ID
-                <pre class="inline p-1 font-bold bg-grey-800 text-grey-100 tracking-tight">{{ request()->input('id')}}</pre>
-                :
-            </h2>
-            @foreach ($sessions as $session)
-                @include('search-result', compact($session))
-            @endforeach
-        </div>
+        @if(isset($sessions))
+            <div class="flex flex-col w-3/4 font-mono">
+                <h2 class="my-12 text-xl text-center">
+                    Sessões para Steam ID
+                    <pre class="inline p-1 font-bold bg-grey-800 text-grey-100 tracking-tight">{{ request()->input('id')}}</pre>
+                    :
+                </h2>
+                @foreach ($sessions as $session)
+                    @include('search-result', compact($session))
+                @endforeach
+            </div>
+        @endif
     </div>
 @endsection

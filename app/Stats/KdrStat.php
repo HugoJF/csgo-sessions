@@ -6,15 +6,15 @@ use App\Classes\Stat;
 
 class KdrStat extends Stat
 {
-	protected $dependencies = [KillStat::class, DeathStat::class];
+	protected $dependencies = [TotalKillsStat::class, TotalDeathsStat::class];
 	protected $name = 'kdr';
 
 	function compute()
 	{
-		/** @var KillStat $killStat */
-		$killStat = $this->getStat(KillStat::class);
-		/** @var DeathStat $deathStat */
-		$deathStat = $this->getStat(DeathStat::class);
+		/** @var TotalKillsStat $killStat */
+		$killStat = $this->getStat(TotalKillsStat::class);
+		/** @var TotalDeathsStat $deathStat */
+		$deathStat = $this->getStat(TotalDeathsStat::class);
 
 		return $killStat->getValue() / $deathStat->getValue();
 	}

@@ -26,7 +26,9 @@
 Route::get('/', 'SessionController@index')->name('sessions.index');
 Route::get('/sessions/random', 'SessionController@random')->name('sessions.random');
 Route::get('/sessions/search', 'SessionController@search')->name('sessions.search');
+Route::get('/sessions/{session}/raw', 'SessionController@raw')->name('sessions.show');
 Route::get('/sessions/{session}', 'SessionController@show')->name('sessions.show');
+
 Route::get('search', function () {
 	return view('search');
 })->name('search');

@@ -11,12 +11,17 @@ use App\Server;
 use App\Stats\DamagePerHitGroupStat;
 use App\Stats\DamagePerWeaponStat;
 use App\Stats\DeathStat;
+use App\Stats\HeadshotPercentageStat;
 use App\Stats\HitsPerHitGroupStat;
 use App\Stats\HitsPerWeaponStat;
 use App\Stats\KdrStat;
+use App\Stats\KillsPerHitGroupStat;
+use App\Stats\KillsPerWeaponStat;
 use App\Stats\KillStat;
 use App\Stats\TotalDamageStat;
+use App\Stats\TotalDeathsStat;
 use App\Stats\TotalHitsStat;
+use App\Stats\TotalKillsStat;
 
 class ServerService
 {
@@ -40,10 +45,6 @@ class ServerService
 	public function getStats()
 	{
 		return collect([
-			KillStat::class,
-			DeathStat::class,
-			KdrStat::class,
-
 			DamagePerHitGroupStat::class,
 			DamagePerWeaponStat::class,
 			TotalDamageStat::class,
@@ -51,6 +52,15 @@ class ServerService
 			HitsPerHitGroupStat::class,
 			HitsPerWeaponStat::class,
 			TotalHitsStat::class,
+
+			KillsPerWeaponStat::class,
+			KillsPerHitGroupStat::class,
+			TotalKillsStat::class,
+
+			TotalDeathsStat::class,
+
+			HeadshotPercentageStat::class,
+			KdrStat::class,
 		]);
 	}
 

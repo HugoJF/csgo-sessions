@@ -20,6 +20,13 @@ class SessionController extends Controller
 
 		return view('session', compact('session', 'data'));
 	}
+	public function raw(Session $session)
+	{
+		$builder = new SessionBuilder($session);
+		$data = $builder->toArray()->toArray();
+
+		dd($data);
+	}
 
 	public function search(SessionSearchRequest $request)
 	{
