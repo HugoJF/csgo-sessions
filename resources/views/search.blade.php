@@ -14,7 +14,6 @@
                         <div>{!! $error !!}</div>
                     </div>
                 @endforeach
-            
             @endif
         </div>
         
@@ -38,6 +37,32 @@
                     text-blue-100 hover:text-white
                     no-underline
                     bg-blue-800 hover:bg-blue-700 hover:shadow">Random</a>
+        </div>
+        
+        <div class="flex flex-col w-3/4 font-mono">
+            <h2 class="my-12 text-xl text-center">
+                Sessões para Steam ID
+                <pre class="inline p-1 font-bold bg-grey-800 text-grey-100 tracking-tight">STEAM_1_1:4231254</pre>
+                :
+            </h2>
+            @for($i = 0; $i < 10; $i++)
+                <div class="flex flex-wrap mb-8 p-6 justify-between items-center bg-grey-800 shadow">
+                    <h3 class="text-4xl text-grey-600">#{{ rand($i, ($i+4)*50) }}</h3>
+                    <div class="flex flex-col items-center">
+                        <div class="text-lg">
+                            <span>177.54.150.15:27001</span>
+                            <small class="text-grey-600">por 45 minutos</small>
+                        </div>
+                        <div class="flex-grow-0 text-sm text-grey-600">14:02:22 23/12/2019</div>
+                    </div>
+                    <a href="{{ route('sessions.random') }}" class="trans-fast flex items-center justify-center
+                        px-5 py-3
+                        font-mono text-lg
+                        text-blue-100 hover:text-white
+                        no-underline
+                        bg-blue-800 hover:bg-blue-700 hover:shadow">Ver</a>
+                </div>
+            @endfor
         </div>
     </div>
 @endsection
