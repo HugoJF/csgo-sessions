@@ -13,14 +13,13 @@ class SessionService
 {
 	public function closeActiveSessions($steamid, $strict = false)
 	{
-		$sessions = Session::where('steamid', $steamid)->where('active', true)->get();
+		$sessions = Session::query()->where('steamid', $steamid)->whereNotNull('closed_at')->get();
 
 		if ($strict && $sessions->count() > 1)
 			throw new MultipleSessionsException($steamid);
 
 		foreach ($sessions as $session) {
 			$session->steamid = $steamid;
-			$session->active = false;
 			$session->closed_at = now();
 
 			$this->buildSession($session);
@@ -50,7 +49,7 @@ class SessionService
 	public function getActiveSessions()
 	{
 		// TODO: meh
-		return Session::where('active', true)->leftJoin('servers', 'sessions.server_id', '=', 'servers.id')->get([
+		return Session::query()->whereNotNull('closed_at')->leftJoin('servers', 'sessions.server_id', '=', 'servers.id')->get([
 			'sessions.id',
 			'sessions.active',
 			'sessions.server_id',
