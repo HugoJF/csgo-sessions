@@ -51,7 +51,6 @@ class SessionService
 		// TODO: meh
 		return Session::query()->whereNull('closed_at')->leftJoin('servers', 'sessions.server_id', '=', 'servers.id')->get([
 			'sessions.id',
-			'sessions.active',
 			'sessions.server_id',
 			'sessions.steamid',
 			'servers.address',
