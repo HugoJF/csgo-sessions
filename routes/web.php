@@ -11,7 +11,6 @@
 |
 */
 
-// parar de usar active e usar closed_at
 // corrigir attackersteam no pipeline
 // adicionar job para finalizacao de sessoes stale
 // adicionar sentry

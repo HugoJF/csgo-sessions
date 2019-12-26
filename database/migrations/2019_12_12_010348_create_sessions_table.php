@@ -16,8 +16,6 @@ class CreateSessionsTable extends Migration
 		Schema::create('sessions', function (Blueprint $table) {
 			$table->bigIncrements('id');
 
-			$table->boolean('active')->default(false);
-
 			$table->string('steamid');
 			$table->unsignedInteger('server_id')->references('id')->on('servers');
 
