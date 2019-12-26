@@ -79,7 +79,6 @@ class SessionService
 		// TODO: fillable
 		$session = Session::make();
 
-		$session->active = true;
 		$session->server()->associate($server);
 		$session->steamid = $steamid;
 
