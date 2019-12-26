@@ -8,12 +8,15 @@
         <div class="flex-grow-0 text-sm text-grey-600">{{ $session->created_at }} ({{ $session->created_at->diffForHumans() }})</div>
     </div>
     @if(!$session->active)
-        <a href="{{ route('sessions.show', $session) }}" class="trans-fast flex items-center justify-center
+        <a href="{{ route('sessions.show', $session) }}" class="group trans-fast flex items-center justify-center
                         px-5 py-3
                         font-mono text-lg
                         text-blue-100 hover:text-white
                         no-underline
-                        bg-blue-800 hover:bg-blue-700 hover:shadow">Ver</a>
+                        bg-blue-800 hover:bg-blue-700 hover:shadow">
+            Ver<i class="ml-2 text-2xl text-blue-200 group-hover:text-blue-100 fas fa-angle-right"></i>
+
+        </a>
     @endif
 
 </div>

@@ -25,6 +25,8 @@
 // full object storage?
 
 Route::get('/', 'SessionController@index')->name('sessions.index');
+Route::get('auth/handle', 'AuthController@handle')->name('auth.handle');
+Route::get('auth/redirect', 'AuthController@redirect')->name('auth.redirect');
 Route::get('/sessions/random', 'SessionController@random')->name('sessions.random');
 Route::get('/sessions/search', 'SessionController@search')->name('sessions.search');
 Route::get('/sessions/{session}/raw', 'SessionController@raw')->name('sessions.show');

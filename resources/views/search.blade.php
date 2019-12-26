@@ -24,19 +24,30 @@
                     font-mono text-lg
                     text-grey-600 focus:text-grey-700 placeholder-grey-600 focus:placeholder-grey-700 bg-grey-800 focus:bg-grey-400
                     outline-none shadow focus:shadow-lg" autocomplete="off" name="id" placeholder="Digite sua SteamID (ex: STEAM_0:1:36509127, [U:1:73018255], 76561198033283983)" type="text">
-                <button class="trans-fast
+                <button class="group trans-fast flex items-center justify-center
                     h-16 w-16
                     font-mono text-lg
                     text-blue-100 hover:text-white
-                    bg-green-800 hover:bg-green-700 hover:shadow" type="submit">Go
+                    bg-blue-800 hover:bg-blue-700 hover:shadow" type="submit">
+                    Go
                 </button>
             </form>
-            <a href="{{ route('sessions.random') }}" class="trans-fast flex items-center justify-center
+            <a href="{{ route('sessions.random') }}" class="group trans-fast flex items-center justify-center
                     h-16 w-32
                     font-mono text-lg
-                    text-blue-100 hover:text-white
+                    text-green-100 hover:text-white
                     no-underline
-                    bg-blue-800 hover:bg-blue-700 hover:shadow">Random</a>
+                    bg-green-800 hover:bg-green-700 hover:shadow">
+                <i class="mr-2 text-2xl text-green-200 group-hover:text-green-100 fab fa-steam"></i>Login
+            </a>
+            <a href="{{ route('sessions.random') }}" class="group trans-fast flex items-center justify-center
+                    h-16 w-32
+                    font-mono text-lg
+                    text-grey-100 hover:text-white
+                    no-underline
+                    bg-grey-800 hover:bg-grey-700 hover:shadow">
+                <i class="mr-2 text-xl text-grey-200 group-hover:text-grey-100 fas fa-random"></i>Random
+            </a>
         </div>
         
         @if(isset($sessions))
