@@ -1,20 +1,5 @@
 @extends('layouts.blank')
 
-<!--
-
-    top 5 guns
-
-
-    kills/min -> tempo de jogo
-    damage/min -> total damage
-    hs% -> hs count
-    kdr -> kills
-    
-    top 5 guns deaths
-    damage taken
-    
--->
-
 @php
     arsort($data['damage-by-weapon']);
     arsort($data['hits-by-hitgroup']);
@@ -39,7 +24,7 @@
                                     <p class="font-medium uppercase">{{ $weapon }}</p>
                                     <p class="text-grey-600 font-normal tracking-tight">
                                         {{ $data['kills-by-weapon'][$weapon] ?? 0 }} kills
-                                        <small>({{ $damage }} damage)</small>
+                                        <small>({{ to_unit($damage) }} damage)</small>
                                     </p>
                                 </div>
                             </td>
@@ -59,13 +44,19 @@
                             <td class="">
                                 <div class="flex items-baseline">
                                     <span class="font-medium">{{ $hits }}</span>
-                                    <small class="ml-1 text-grey-600 tracking-tight">hits</small>
+                                    <small class="ml-1 text-grey-400 tracking-tight">hits</small>
+                                    <small class="ml-1 text-grey-600 tracking-tight">({{ number_format($hits / $data['hits-total'] * 100, 0) }}%)</small>
                                 </div>
                             </td>
                             <td class="">
+                                @php
+                                    $kills = $data['kills-by-hitgroup'][$part] ?? null;
+                                    $killsTotal = $data['kills-total'];
+                                @endphp
                                 <div class="flex items-baseline">
-                                    <span class="font-medium">{{ number_format($hits / $data['hits-total'] * 100, 1) }}</span>
-                                    <small class="ml-1 text-grey-600 tracking-tight">%</small>
+                                    <span class="font-medium">{{ $kills ?? '-' }}</span>
+                                    <small class="ml-1 text-grey-400 tracking-tight">kills</small>
+                                    <small class="ml-1 text-grey-600 tracking-tight">({{ number_format(($kills ?? 0) / ($killsTotal ?: 1) * 100, 0) }}%)</small>
                                 </div>
                             </td>
                         </tr>
