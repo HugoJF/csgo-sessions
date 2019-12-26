@@ -11,13 +11,13 @@
 |
 */
 
-// corrigir attackersteam no pipeline
-// adicionar job para finalizacao de sessoes stale
 // adicionar sentry
-// adicionar suporte pro servidor 2 e 3
-// divulgar
 // google analytics
 // production
+// corrigir attackersteam no pipeline
+// adicionar job para finalizacao de sessoes stale
+// adicionar suporte pro servidor 2 e 3
+// divulgar
 // terminar testes (travis?)
 // o que acontece com map change?
 // docs + comments

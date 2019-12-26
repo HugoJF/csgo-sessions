@@ -32,7 +32,7 @@
                     Go
                 </button>
             </form>
-            <a href="{{ route('sessions.random') }}" class="group trans-fast flex items-center justify-center
+            <a href="{{ route('auth.redirect') }}" class="group trans-fast flex items-center justify-center
                     h-16 w-32
                     font-mono text-lg
                     text-green-100 hover:text-white
