@@ -57,3 +57,8 @@ This is done to avoid holding redundant statistics (which would need more storag
 
 ## TODO:
   - Finish it and complete documentation.
+  - Add support for object storage
+  - Add support for compression
+  - Add email notifications
+  - Add per-server layouts
+  - Add support for heatmaps
