@@ -29,6 +29,7 @@ class Kernel extends ConsoleKernel
         //          ->hourly();
 
 		$schedule->command('events:process')->everyMinute();
+		$schedule->command('sessions:close')->everyFifteenMinutes();
     }
 
     /**

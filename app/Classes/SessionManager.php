@@ -9,74 +9,87 @@ use Illuminate\Support\Collection;
 
 class SessionManager
 {
-	protected $server;
-	protected $session;
+    protected $server;
+    protected $session;
 
-	protected $collectors;
+    protected $collectors;
 
-	public function __construct(Session $session)
-	{
-		$this->session = $session;
-		$this->server = $session->server;
+    // Flag to mark session as modified (when at least one collector received an event)
+    protected $dirty = false;
 
-		$this->loadCollectors();
-	}
+    public function __construct(Session $session)
+    {
+        $this->session = $session;
+        $this->server = $session->server;
 
-	public function getRedisPrefix()
-	{
-		return $this->session->id;
-	}
+        $this->loadCollectors();
+    }
 
-	public function getRedisKey(string $name)
-	{
-		$prefix = $this->getRedisPrefix();
+    public function __destruct()
+    {
+        if ($this->dirty) {
+            $this->session->touch();
+            $this->session->save();
+        }
+    }
 
-		return "$prefix.$name";
-	}
+    public function getRedisPrefix()
+    {
+        return $this->session->id;
+    }
 
-	private function loadCollectors()
-	{
-		if (!$this->session)
-			return;
+    public function getRedisKey(string $name)
+    {
+        $prefix = $this->getRedisPrefix();
 
-		/** @var ServerService $service */
-		$service = app(ServerService::class);
+        return "$prefix.$name";
+    }
 
-		/** @var Collection $collectors */
-		$collectors = $service->getCollectors($this->server);
+    private function loadCollectors()
+    {
+        if (!$this->session)
+            return;
 
-		$this->collectors = $collectors->map(function ($collector) {
-			return new $collector($this);
-		});
-	}
+        /** @var ServerService $service */
+        $service = app(ServerService::class);
 
-	public function handleEvent(array $event)
-	{
-		$address = $event['server'] ?? false;
+        /** @var Collection $collectors */
+        $collectors = $service->getCollectors($this->server);
 
-		if ($address === $this->server->address)
-			$this->handleGenericEvent($event);
-	}
+        $this->collectors = $collectors->map(function ($collector) {
+            return new $collector($this);
+        });
+    }
 
-	/**
-	 * @param array $event
-	 *
-	 * @throws MissingEventDataException
-	 */
-	protected function handleGenericEvent(array $event): void
-	{
-		/** @var Collector $collector */
-		foreach ($this->collectors as $collector) {
-			if ($collector->accepts($event))
-				$collector->collect($event);
-		}
-	}
+    public function handleEvent(array $event)
+    {
+        $address = $event['server'] ?? false;
 
-	/**
-	 * @return mixed
-	 */
-	public function getSession()
-	{
-		return $this->session;
-	}
+        if ($address === $this->server->address)
+            $this->handleGenericEvent($event);
+    }
+
+    /**
+     * @param array $event
+     *
+     * @throws MissingEventDataException
+     */
+    protected function handleGenericEvent(array $event): void
+    {
+        /** @var Collector $collector */
+        foreach ($this->collectors as $collector) {
+            if ($collector->accepts($event)) {
+                $this->dirty = true;
+                $collector->collect($event);
+            }
+        }
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSession()
+    {
+        return $this->session;
+    }
 }
