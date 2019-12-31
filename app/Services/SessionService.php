@@ -38,6 +38,7 @@ class SessionService
 
 			$name = $matches[1];
 			$value = Redis::connection('input')->get($key);
+            Redis::connection('input')->del($key);
 
 			$data[ $name ] = $value;
 		}
