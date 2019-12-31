@@ -44,7 +44,10 @@ class CloseStaleSessions extends Command
         $service = app(SessionService::class);
 
         /** @var Collection $stale */
-        $stale = Session::query()->where('updated_at', '<', now()->subHour());
+        $stale = Session::query()
+                        ->whereNull('closed_at')
+                        ->where('updated_at', '<', now()->subHour())
+                        ->get();
         $count = $stale->count();
         info("Found $count stale sessions", ['sessions' => $stale->pluck('id')]);
 
