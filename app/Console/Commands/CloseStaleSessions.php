@@ -46,11 +46,11 @@ class CloseStaleSessions extends Command
         /** @var Collection $stale */
         $stale = Session::query()->where('updated_at', '<', now()->subHour());
         $count = $stale->count();
-        log("Found $count stale sessions", ['sessions' => $stale->pluck('id')]);
+        info("Found $count stale sessions", ['sessions' => $stale->pluck('id')]);
 
         /** @var Session $session */
         foreach ($stale as $session) {
-            log("Closing sessions for SteamID: $session->steamid");
+            info("Closing sessions for SteamID: $session->steamid");
             $service->closeActiveSessions($session->steamid);
         }
     }
