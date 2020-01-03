@@ -116,9 +116,9 @@ class EventDispatcher
 
     protected function removeActiveSessions($steamid)
     {
-        foreach ($this->sessions as $server) {
-            if (array_key_exists($steamid, $server))
-                unset($this->sessions[ $server ][ $steamid ]);
+        foreach ($this->sessions as $ip => $sessions) {
+            if (array_key_exists($steamid, $sessions))
+                unset($this->sessions[ $ip ][ $steamid ]);
         }
     }
 }
